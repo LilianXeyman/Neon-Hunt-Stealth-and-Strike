@@ -16,6 +16,9 @@ public class Menu : MonoBehaviour
     //Imput System
     PlayerInput _playerInput;
 
+    //Bool Menu
+    bool menuActivo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,18 +30,15 @@ public class Menu : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
 
         //Para el enter
-        TextMeshProUGUI tmpTextComponent = enterStart.GetComponent<TextMeshProUGUI>();
-        if (tmpTextComponent != null)
-        {
-            tmpTextComponent.alpha = 1f;
-            LeanTween.alphaText(tmpTextComponent.rectTransform, 0f, 1f).setEase(LeanTweenType.easeInOutSine).setLoopPingPong(); // Hace que el fade in y fade out se repitan
-        }
+        menuActivo = true;
     }
         // Update is called once per frame
         void Update()
         {
             //Debug /Poner en todas las escenas
             FullScreen();
+
+            //Para el menu
 
             //Para la primera parte del menu
             if (Input.GetButtonDown("Submit") || Input.anyKeyDown)
@@ -56,4 +56,19 @@ public class Menu : MonoBehaviour
                 Screen.fullScreen = !Screen.fullScreen;
             }
         }
+    /*void AlternarMenu()
+    { 
+        menuActivo=!menuActivo;
+
+        if (menuActivo)
+        {
+            StartCoroutine(ParpadearMenu());
+            Time.timeScale = 0;
+        }
+        else 
+        {
+            StopAllCoroutiine();
+            menuCanvas.alpha=1
+        }
+    }*/
 }
