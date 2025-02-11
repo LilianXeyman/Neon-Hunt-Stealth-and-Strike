@@ -58,6 +58,7 @@ public class Menu : MonoBehaviour
 
     //Bool Menu
     bool menuActivo;
+    bool empezar;
 
     // Start is called before the first frame update
     void Start()
@@ -71,11 +72,15 @@ public class Menu : MonoBehaviour
 
         //Para el enter
         menuActivo = true;
+        empezar = false;
 
         //Botones
         LeanTween.moveLocalY(botonEmpezar, -1200, 0);
         LeanTween.moveLocalY(botonOpciones, -1200, 0);
         LeanTween.moveLocalY(botonSalir, -1200, 0);
+        botonEmpezar.SetActive(false);
+        botonOpciones.SetActive(false);
+        botonSalir.SetActive(false);
 
         //Imagenes Menu
         LeanTween.moveLocalY(imagenPlayer, 1200, 0);
@@ -89,16 +94,19 @@ public class Menu : MonoBehaviour
             //Debug /Poner en todas las escenas
             FullScreen();
 
-            //Para el menu
+        //Para el menu
 
-            //Para la primera parte del menu
+        //Para la primera parte del menu
+        if (empezar==false)
+        {
             if (Input.GetButtonDown("Submit") || Input.anyKeyDown)
             {
-                
+                empezar=true;
                 ShowButtons();
-            //LeanTween.
+                //LeanTween.
                 Debug.Log("Empezar");
             }
+        }
         }
         void FullScreen()
         {
@@ -113,6 +121,9 @@ public class Menu : MonoBehaviour
         LeanTween.cancel(enterStart);
         enterStart.SetActive(false);
         gameTitle.SetActive(false);
+        botonEmpezar.SetActive(true);
+        botonOpciones.SetActive(true);
+        botonSalir.SetActive(true);
 
         //Botones
         LeanTween.moveLocalY(botonEmpezar, posPantallaBotonEmpezar, tiempoAnim).setEase(curvAnim).setOnComplete(() => { 
@@ -141,6 +152,14 @@ public class Menu : MonoBehaviour
     public void Comenzar()
     {
         SceneManager.LoadScene(SampleScene);
+    }
+    public void Opciones()
+    { 
+    
+    }
+    public void Volver()
+    { 
+    
     }
     /*void AlternarMenu()
     { 
