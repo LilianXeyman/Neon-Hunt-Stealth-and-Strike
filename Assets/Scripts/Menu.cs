@@ -4,9 +4,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class Menu : MonoBehaviour
 {
+    //Para el menu
+    public EventSystem eventSystem;
+    public GameObject pantallaCompleta;
+
     //Para cambiar la escena
     public string SampleScene;
 
@@ -95,6 +100,7 @@ public class Menu : MonoBehaviour
         botonEmpezar.SetActive(false);
         botonOpciones.SetActive(false);
         botonSalir.SetActive(false);
+        menuOpciones.SetActive(false);
 
         //Imagenes Menu
         LeanTween.moveLocalY(imagenPlayer, 1200, 0);
@@ -166,6 +172,8 @@ public class Menu : MonoBehaviour
     }
     public void Opciones()
     {
+        menuOpciones.SetActive(true);
+        eventSystem.SetSelectedGameObject(pantallaCompleta);
         //Quitarle el alpha a los botones y desasctivarlos. Mover las imágenes hacia los lados y el menu de opciones cae desde arriba
         SetAlpha(botonEmpezar, 0, 0.75f);
         SetAlpha(botonOpciones, 0, 0.75f);
@@ -186,6 +194,8 @@ public class Menu : MonoBehaviour
     }
     public void Volver()
     {
+        menuOpciones.SetActive(false);
+        eventSystem.SetSelectedGameObject(botonEmpezar);
         //Reestablecer el menu inicial
         LeanTween.moveLocalY(menuOpciones, 1900, tiempoAnim).setOnComplete(() =>
         {

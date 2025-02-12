@@ -15,6 +15,10 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        [Header("References")]
+        [Tooltip("Robot geometry")]
+        [SerializeField] private Transform _robot;
+
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -29,6 +33,15 @@ namespace StarterAssets
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
 
+        private Quaternion _currentTiltRotation;
+        // for character tilt animation on normal speed
+        private float _forwardTiltAmount = 15f;
+        private float _tiltSmoothTime = 2.5f;
+        // for character tilt animation on sprint
+        private float _sprintForwardTiltAmount = 25f;
+        private float _sprintTiltSmoothTime = 5f;
+
+        //audio
         public AudioClip LandingAudioClip;
         public AudioClip[] FootstepAudioClips;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
@@ -76,13 +89,6 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
-        //Inclinacion personaje
-        [Header("Tilt Settings")]
-        public float tiltAmount = 5f; // Ajusta este valor para controlar la inclinación
-
-        //Giro en el robot
-        [SerializeField]
-        float rotacionEnGiro;
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -224,11 +230,9 @@ namespace StarterAssets
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-
-            /*float valorEnX = _input.move.x; //Tengo el valor en x es decir positivo o negativo
-            float valorEnY = _input.move.y;//Valor en Y
-            gameObject.transform.rotation = new Quaternion(valorEnX*rotacionEnGiro, gameObject.transform.rotation.y, valorEnY*rotacionEnGiro,gameObject.transform.rotation.w);
-            Debug.Log(_input.move);*/
+            /*
+            float targetForwardTiltAmount = _input.sprint ? _sprintForwardTiltAmount : _forwardTiltAmount; //Haces una pregunta, si la respuesta es si ejecuta lo de antes de : si no lo de despues
+            float targetTiltSmoothTime = _input.sprint ? _sprintTiltSmoothTime : _tiltSmoothTime; */
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -250,13 +254,11 @@ namespace StarterAssets
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
             // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset)
+            if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
             {
                 // creates curved result rather than a linear one giving a more organic speed change
                 // note T in Lerp is clamped, so we don't need to clamp our speed
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                    Time.deltaTime * SpeedChangeRate);
+                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
 
                 // round speed to 3 decimal places
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
@@ -276,21 +278,33 @@ namespace StarterAssets
             // if there is a move input rotate player when the player is moving
             if (_input.move != Vector2.zero)
             {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                    RotationSmoothTime);
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
+                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
+                /*
+                //Para la rotacion mientras te mueves
+                float tiltAngleZ = Mathf.Clamp(targetForwardTiltAmount, targetForwardTiltAmount, _input.move.y * targetForwardTiltAmount);// Esto va en x -_input.move.y
+
+                Quaternion targetTiltRotation = Quaternion.Euler(tiltAngleZ, _robot.localEulerAngles.y, _robot.localEulerAngles.z);//Quaternion targetTiltRotation = Quaternion.Euler(_robot.localEulerAngles.x, _robot.localEulerAngles.y, tiltAngleZ);
+
+                //Para que la rotacion sea paulatina
+                _currentTiltRotation = Quaternion.Slerp(_currentTiltRotation, targetTiltRotation, Time.deltaTime * targetTiltSmoothTime);
+                _robot.localRotation = _currentTiltRotation;
+            }
+            else 
+            {
+                _currentTiltRotation = Quaternion.Slerp(_currentTiltRotation, Quaternion.Euler(0, _robot.localEulerAngles.y, 0), Time.deltaTime * targetTiltSmoothTime);
+                _robot.localRotation = _currentTiltRotation;
+            }*/
 
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
             if (_hasAnimator)

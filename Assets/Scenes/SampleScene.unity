@@ -26344,6 +26344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50e1e2e2eee99049ac0dc32dc07b59f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _robot: {fileID: 1148757365}
   MoveSpeed: 2
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
@@ -26367,8 +26368,6 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
-  tiltAmount: 5
-  rotacionEnGiro: 20
   isMoving: 0
 --- !u!143 &1148757363
 CharacterController:
@@ -47977,6 +47976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50e1e2e2eee99049ac0dc32dc07b59f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _robot: {fileID: 0}
   MoveSpeed: 2
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
@@ -48000,8 +48000,6 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
-  tiltAmount: 5
-  rotacionEnGiro: 0
   isMoving: 0
 --- !u!23 &3267433138133894332
 MeshRenderer:
