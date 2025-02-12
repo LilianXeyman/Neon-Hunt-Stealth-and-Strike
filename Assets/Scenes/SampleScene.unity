@@ -26367,6 +26367,8 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+  tiltAmount: 5
+  rotacionEnGiro: 20
   isMoving: 0
 --- !u!143 &1148757363
 CharacterController:
@@ -47998,6 +48000,8 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+  tiltAmount: 5
+  rotacionEnGiro: 0
   isMoving: 0
 --- !u!23 &3267433138133894332
 MeshRenderer:

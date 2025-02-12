@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
@@ -75,6 +76,13 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        //Inclinacion personaje
+        [Header("Tilt Settings")]
+        public float tiltAmount = 5f; // Ajusta este valor para controlar la inclinación
+
+        //Giro en el robot
+        [SerializeField]
+        float rotacionEnGiro;
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -217,6 +225,10 @@ namespace StarterAssets
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
+            /*float valorEnX = _input.move.x; //Tengo el valor en x es decir positivo o negativo
+            float valorEnY = _input.move.y;//Valor en Y
+            gameObject.transform.rotation = new Quaternion(valorEnX*rotacionEnGiro, gameObject.transform.rotation.y, valorEnY*rotacionEnGiro,gameObject.transform.rotation.w);
+            Debug.Log(_input.move);*/
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -384,8 +396,8 @@ namespace StarterAssets
             {
                 if (FootstepAudioClips.Length > 0)
                 {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    //var index = Random.Range(0, FootstepAudioClips.Length);
+                    //AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                 }
             }
         }
