@@ -30,6 +30,8 @@ public class Menu : MonoBehaviour
     GameObject imagenVs1;
     [SerializeField]
     GameObject imagenVs2;
+    [SerializeField]
+    GameObject menuOpciones;
 
     //Parámetros
     [SerializeField]
@@ -52,6 +54,12 @@ public class Menu : MonoBehaviour
     float posPantallaImagenVs2;
     [SerializeField]
     LeanTweenType curvAnim2;
+    [SerializeField]
+    float posPantallaMenuOpciones;
+    [SerializeField]
+    float posPantallaImagenPlayerX;
+    [SerializeField]
+    float posPantallaImagenEnemyX;
 
     //Imput System
     PlayerInput _playerInput;
@@ -59,6 +67,12 @@ public class Menu : MonoBehaviour
     //Bool Menu
     bool menuActivo;
     bool empezar;
+
+    //Audio
+    [SerializeField]
+    AudioSource audioSource;
+    [SerializeField]
+    AudioClip clipBotones;
 
     // Start is called before the first frame update
     void Start()
@@ -87,16 +101,16 @@ public class Menu : MonoBehaviour
         LeanTween.moveLocalY(imagenEnemy, -1200, 0);
         LeanTween.moveLocalY(imagenVs1, -1200, 0);
         LeanTween.moveLocalY(imagenVs2, 1200, 0);
+
+        //Pantalla Completa
+        FullScreen();
     }
         // Update is called once per frame
-        void Update()
-        {
-            //Debug /Poner en todas las escenas
-            FullScreen();
+    void Update()
+    {
+           //Para el menu
 
-        //Para el menu
-
-        //Para la primera parte del menu
+           //Para la primera parte del menu
         if (empezar==false)
         {
             if (Input.GetButtonDown("Submit") || Input.anyKeyDown)
@@ -107,14 +121,11 @@ public class Menu : MonoBehaviour
                 Debug.Log("Empezar");
             }
         }
-        }
-        void FullScreen()
-        {
-            if (Input.GetKeyDown(KeyCode.K))//Cambiar para la forma genérica
-            {
-                Screen.fullScreen = !Screen.fullScreen;
-            }
-        }
+    }
+    public void FullScreen()
+    {
+         Screen.fullScreen = !Screen.fullScreen;
+    }
     void ShowButtons()
     {
         //Para el parpadeo del título
@@ -154,12 +165,111 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene(SampleScene);
     }
     public void Opciones()
-    { 
-    
+    {
+        //Quitarle el alpha a los botones y desasctivarlos. Mover las imágenes hacia los lados y el menu de opciones cae desde arriba
+        SetAlpha(botonEmpezar, 0, 0.75f);
+        SetAlpha(botonOpciones, 0, 0.75f);
+        SetAlpha(botonSalir, 0, 0.75f);
+           LeanTween.moveLocalX(imagenPlayer, -1900, 0.25f).setOnComplete(() => {
+               botonEmpezar.SetActive(false);
+               botonOpciones.SetActive(false);
+               botonSalir.SetActive(false);
+               LeanTween.moveLocalX(imagenEnemy, 1900, 0.25f);
+                   LeanTween.moveLocalX(imagenVs1, -1900, 0.25f).setOnComplete(() => {
+                       LeanTween.moveLocalX(imagenVs2, 1900, 0.25f).setOnComplete(() =>
+                       {
+                           LeanTween.moveLocalY(menuOpciones, posPantallaMenuOpciones, tiempoAnim).setEase(curvAnim);
+                       });
+                   });
+           });
+  
     }
     public void Volver()
-    { 
-    
+    {
+        //Reestablecer el menu inicial
+        LeanTween.moveLocalY(menuOpciones, 1900, tiempoAnim).setOnComplete(() =>
+        {
+            LeanTween.moveLocalX(imagenVs1, posPantallaImagenVs1, tiempoAnim * 0.25f).setEase(curvAnim2);
+            LeanTween.moveLocalX(imagenVs2, posPantallaImagenVs2, tiempoAnim * 0.25f).setEase(curvAnim2).setOnComplete(() =>
+            {
+                LeanTween.moveLocalX(imagenPlayer, posPantallaImagenPlayerX, tiempoAnim).setEase(curvAnim2);
+                LeanTween.moveLocalX(imagenEnemy, posPantallaImagenEnemyX, tiempoAnim).setEase(curvAnim2).setOnComplete(() =>
+                {
+                    botonEmpezar.SetActive(true);
+                    botonOpciones.SetActive(true);
+                    botonSalir.SetActive(true);
+                    SetAlpha(botonEmpezar, 1, 0.75f);
+                    SetAlpha(botonOpciones, 1, 0.75f);
+                    SetAlpha(botonSalir, 1, 0.75f);
+                });
+            });
+        });
+    }
+        // Corutina para cambiar el alpha con una transición suave
+        IEnumerator SetAlphaOverTime(GameObject obj, float targetAlpha, float duration)
+        {
+            // Verificamos si el objeto tiene un MeshRenderer (para objetos 3D)
+            /*MeshRenderer meshRenderer = obj.GetComponent<MeshRenderer>();
+            if (meshRenderer != null)
+            {
+                Color initialColor = meshRenderer.material.color;
+                float elapsedTime = 0f;
+                while (elapsedTime < duration)
+                {
+                    elapsedTime += Time.deltaTime;
+                    float alpha = Mathf.Lerp(initialColor.a, targetAlpha, elapsedTime / duration);
+                    Color newColor = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+                    meshRenderer.material.color = newColor;
+                    yield return null;
+                }
+                // Asegurarse de que el alpha final sea el objetivo
+                Color finalColor = new Color(initialColor.r, initialColor.g, initialColor.b, targetAlpha);
+                meshRenderer.material.color = finalColor;
+            }*/
+
+            // Verificamos si el objeto tiene un Image (para UI)
+            UnityEngine.UI.Image image = obj.GetComponent<UnityEngine.UI.Image>();
+            if (image != null)
+            {
+                Color initialColor = image.color;
+                float elapsedTime = 0f;
+                while (elapsedTime < duration)
+                {
+                    elapsedTime += Time.deltaTime;
+                    float alpha = Mathf.Lerp(initialColor.a, targetAlpha, elapsedTime / duration);
+                    Color newColor = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+                    image.color = newColor;
+                    yield return null;
+                }
+                // Asegurarse de que el alpha final sea el objetivo
+                Color finalColor = new Color(initialColor.r, initialColor.g, initialColor.b, targetAlpha);
+                image.color = finalColor;
+            }
+
+            // Verificamos si el objeto tiene un TextMeshPro (para texto)
+            TextMeshProUGUI text = obj.GetComponent<TextMeshProUGUI>();
+            if (text != null)
+            {
+                Color initialColor = text.color;
+                float elapsedTime = 0f;
+                while (elapsedTime < duration)
+                {
+                    elapsedTime += Time.deltaTime;
+                    float alpha = Mathf.Lerp(initialColor.a, targetAlpha, elapsedTime / duration);
+                    Color newColor = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+                    text.color = newColor;
+                    yield return null;
+                }
+                // Asegurarse de que el alpha final sea el objetivo
+                Color finalColor = new Color(initialColor.r, initialColor.g, initialColor.b, targetAlpha);
+                text.color = finalColor;
+            }
+        }
+
+    // Método que se puede llamar para cambiar el alpha de un objeto con tiempo
+    public void SetAlpha(GameObject obj, float targetAlpha, float duration)
+    {
+        StartCoroutine(SetAlphaOverTime(obj, targetAlpha, duration));
     }
     /*void AlternarMenu()
     { 
@@ -177,3 +287,4 @@ public class Menu : MonoBehaviour
         }
     }*/
 }
+
