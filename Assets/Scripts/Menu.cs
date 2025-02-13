@@ -70,14 +70,7 @@ public class Menu : MonoBehaviour
     PlayerInput _playerInput;
 
     //Bool Menu
-    bool menuActivo;
     bool empezar;
-
-    //Audio
-    [SerializeField]
-    AudioSource audioSource;
-    [SerializeField]
-    AudioClip clipBotones;
 
     // Start is called before the first frame update
     void Start()
@@ -90,8 +83,8 @@ public class Menu : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
 
         //Para el enter
-        menuActivo = true;
         empezar = false;
+        ParpadearEnterStart();
 
         //Botones
         LeanTween.moveLocalY(botonEmpezar, -1200, 0);
@@ -110,6 +103,10 @@ public class Menu : MonoBehaviour
 
         //Pantalla Completa
         FullScreen();
+
+        //Para los clicks en el menu
+        Cursor.lockState = CursorLockMode.None; // Asegura que el cursor está libre
+        Cursor.visible = true; // Asegura que el cursor es visible
     }
         // Update is called once per frame
     void Update()
@@ -121,12 +118,27 @@ public class Menu : MonoBehaviour
         {
             if (Input.GetButtonDown("Submit") || Input.anyKeyDown)
             {
-                empezar=true;
                 ShowButtons();
+                empezar = true;
                 //LeanTween.
                 Debug.Log("Empezar");
             }
         }
+        //Prueba para el raton
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Debug.Log("Click detectado en la pantalla.");
+
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("Click sobre UI.");
+            }
+            else
+            {
+                Debug.Log("Click fuera de la UI.");
+            }
+        }
+    
     }
     public void FullScreen()
     {
@@ -281,20 +293,17 @@ public class Menu : MonoBehaviour
     {
         StartCoroutine(SetAlphaOverTime(obj, targetAlpha, duration));
     }
-    /*void AlternarMenu()
-    { 
-        menuActivo=!menuActivo;
+    void ParpadearEnterStart()
+    {
+        CanvasGroup canvasGroup = enterStart.GetComponent<CanvasGroup>();
 
-        if (menuActivo)
+        if (canvasGroup == null)
         {
-            StartCoroutine(ParpadearMenu());
-            Time.timeScale = 0;
+            canvasGroup = enterStart.AddComponent<CanvasGroup>(); // Si no tiene, se lo añadimos
         }
-        else 
-        {
-            StopAllCoroutiine();
-            menuCanvas.alpha=1
-        }
-    }*/
+
+        // Hacer que el alpha vaya de 1 a 0.5 y vuelva a 1 en bucle
+        LeanTween.alphaCanvas(canvasGroup, 0.2f, tiempoAnim).setEase(LeanTweenType.easeInOutSine).setLoopPingPong();
+    }
 }
 
