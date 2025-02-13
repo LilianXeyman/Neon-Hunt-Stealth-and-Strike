@@ -13,8 +13,9 @@ namespace StarterAssets
 		public bool jump;
         public bool shoot;
         public bool sprint;
+        public bool menu;//Añadido
 
-		[Header("Movement Settings")]
+        [Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
@@ -44,6 +45,11 @@ namespace StarterAssets
             ShootImput(value.isPressed);
 		}
 
+		public void OnMenu(InputValue value)//Añadido
+		{
+            MenuImput(value.isPressed);
+		}
+
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
@@ -51,7 +57,7 @@ namespace StarterAssets
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -69,8 +75,12 @@ namespace StarterAssets
 		{
 			shoot = newShootState;
 		}
+        public void MenuImput(bool newMenuState)//Añadido
+        {
+            menu = newMenuState;
+        }
 
-		public void SprintInput(bool newSprintState)
+        public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
 		}
