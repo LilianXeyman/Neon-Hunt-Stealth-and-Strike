@@ -1,5 +1,5 @@
 
-using StarterAssets;
+/*using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,4 +38,4 @@ public class MenuEnPartida : MonoBehaviour
             menuEnPartida.SetActive(false);
         }
     }
-}
+}*/

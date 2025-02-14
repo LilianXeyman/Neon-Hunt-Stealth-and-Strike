@@ -38,7 +38,7 @@ namespace StarterAssets
         private float _forwardTiltAmount = 15f;
         private float _tiltSmoothTime = 2.5f;
         // for character tilt animation on sprint
-        private float _sprintForwardTiltAmount = 25f;
+        private float _sprintForwardTiltAmount = 10f;
         private float _sprintTiltSmoothTime = 5f;
 
         //audio
@@ -230,9 +230,9 @@ namespace StarterAssets
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-            /*
+            //Desde aqui
             float targetForwardTiltAmount = _input.sprint ? _sprintForwardTiltAmount : _forwardTiltAmount; //Haces una pregunta, si la respuesta es si ejecuta lo de antes de : si no lo de despues
-            float targetTiltSmoothTime = _input.sprint ? _sprintTiltSmoothTime : _tiltSmoothTime; */
+            float targetTiltSmoothTime = _input.sprint ? _sprintTiltSmoothTime : _tiltSmoothTime; //Hasta aqui
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -283,12 +283,13 @@ namespace StarterAssets
 
                 // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-            }
-                /*
+            
+                //Desde aqui
                 //Para la rotacion mientras te mueves
-                float tiltAngleZ = Mathf.Clamp(targetForwardTiltAmount, targetForwardTiltAmount, _input.move.y * targetForwardTiltAmount);// Esto va en x -_input.move.y
+                float tiltAngleZ = Mathf.Clamp(-_input.move.y * targetForwardTiltAmount, -targetForwardTiltAmount, -targetForwardTiltAmount);// Esto va en x -_input.move.y
+                float tiltAnglex = Mathf.Clamp(targetForwardTiltAmount * 0.75f, targetForwardTiltAmount * 0.75f, -_input.move.x *targetForwardTiltAmount * 0.75f);
 
-                Quaternion targetTiltRotation = Quaternion.Euler(tiltAngleZ, _robot.localEulerAngles.y, _robot.localEulerAngles.z);//Quaternion targetTiltRotation = Quaternion.Euler(_robot.localEulerAngles.x, _robot.localEulerAngles.y, tiltAngleZ);
+                Quaternion targetTiltRotation = Quaternion.Euler(tiltAnglex, _robot.localEulerAngles.y, tiltAngleZ);//Quaternion targetTiltRotation = Quaternion.Euler(_robot.localEulerAngles.x, _robot.localEulerAngles.y, tiltAngleZ);
 
                 //Para que la rotacion sea paulatina
                 _currentTiltRotation = Quaternion.Slerp(_currentTiltRotation, targetTiltRotation, Time.deltaTime * targetTiltSmoothTime);
@@ -298,7 +299,7 @@ namespace StarterAssets
             {
                 _currentTiltRotation = Quaternion.Slerp(_currentTiltRotation, Quaternion.Euler(0, _robot.localEulerAngles.y, 0), Time.deltaTime * targetTiltSmoothTime);
                 _robot.localRotation = _currentTiltRotation;
-            }*/
+            }//Hasta aq
 
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;

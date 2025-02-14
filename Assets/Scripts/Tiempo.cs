@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Tiempo : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class Tiempo : MonoBehaviour
     float segundos;
     [SerializeField]
     TextMeshProUGUI textoTiempo;
+
+    //Para cambiar la escena
+    public string Derrota;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +29,10 @@ public class Tiempo : MonoBehaviour
         minutos = Mathf.FloorToInt(tiempo / 60);
         segundos = Mathf.FloorToInt(tiempo % 60);
         textoTiempo.text = minutos.ToString("00") + " : "+ segundos.ToString("00"); //Tambien asi textoTiempo.text = $"{minutos:00}:{segundos:00}";
+
+        if (tiempo <= 0)
+        {
+            SceneManager.LoadScene(Derrota);
+        }
     }
 }
