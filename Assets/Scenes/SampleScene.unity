@@ -6546,7 +6546,7 @@ GameObject:
   - component: {fileID: 109843894}
   - component: {fileID: 109843893}
   - component: {fileID: 109843892}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7638,7 +7638,7 @@ GameObject:
   - component: {fileID: 147174061}
   - component: {fileID: 147174060}
   - component: {fileID: 147174059}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9088,7 +9088,7 @@ GameObject:
   - component: {fileID: 243238081}
   - component: {fileID: 243238083}
   - component: {fileID: 243238082}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9337,7 +9337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 254051590}
   - component: {fileID: 254051591}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PointOfView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12240,7 +12240,7 @@ GameObject:
   - component: {fileID: 546833902}
   - component: {fileID: 546833901}
   - component: {fileID: 546833900}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19265,7 +19265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 615371642}
   - component: {fileID: 615371643}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PointOfView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19484,7 +19484,7 @@ GameObject:
   - component: {fileID: 647862024}
   - component: {fileID: 647862023}
   - component: {fileID: 647862022}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36871,6 +36871,8 @@ GameObject:
   - component: {fileID: 1148757362}
   - component: {fileID: 1148757361}
   - component: {fileID: 1148757366}
+  - component: {fileID: 1148757367}
+  - component: {fileID: 1148757368}
   m_Layer: 0
   m_Name: PlayerControllerPrueba
   m_TagString: Player
@@ -36912,8 +36914,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _robot: {fileID: 2185792758308783637}
-  MoveSpeed: 2
-  SprintSpeed: 5.335
+  MoveSpeed: 3
+  SprintSpeed: 6
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   LandingAudioClip: {fileID: 8300000, guid: ad4755a56231b4340814d92aaa413b10, type: 3}
@@ -37033,6 +37035,42 @@ CapsuleCollider:
   m_Height: 2.8021026
   m_Direction: 1
   m_Center: {x: -0.0009148121, y: 0.11273527, z: 0}
+--- !u!114 &1148757367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148757360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c126161f0ebd8d245b499b14770680b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generatePool: {fileID: 1148757368}
+  radioAlcance: 8
+  layerEnemigos:
+    serializedVersion: 2
+    m_Bits: 512
+  canShoot: 0
+  shootAb: 0
+  tiempoRecarga: 0
+  tiempo: 10
+  _animator: {fileID: 2185792758308783636}
+--- !u!114 &1148757368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148757360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e34ee0073393743acaaf6827aaa3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bala: {fileID: 8369500429555076043, guid: 72541810b0e23a443a90cfaca64e55e4, type: 3}
+  tamanoPool: 10
 --- !u!1 &1148855635
 GameObject:
   m_ObjectHideFlags: 0
@@ -37048,7 +37086,7 @@ GameObject:
   - component: {fileID: 1148855639}
   - component: {fileID: 1148855638}
   - component: {fileID: 1148855637}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37459,7 +37497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1186650451}
   - component: {fileID: 1186650452}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PointOfView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39018,7 +39056,7 @@ GameObject:
   - component: {fileID: 1333837060}
   - component: {fileID: 1333837062}
   - component: {fileID: 1333837061}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39139,7 +39177,7 @@ GameObject:
   - component: {fileID: 1338032251}
   - component: {fileID: 1338032250}
   - component: {fileID: 1338032249}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43623,7 +43661,7 @@ GameObject:
   - component: {fileID: 1530355118}
   - component: {fileID: 1530355120}
   - component: {fileID: 1530355119}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49270,7 +49308,7 @@ GameObject:
   - component: {fileID: 1776492762}
   - component: {fileID: 1776492761}
   - component: {fileID: 1776492760}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50042,7 +50080,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1872175610}
   - component: {fileID: 1872175611}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PointOfView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58297,7 +58335,7 @@ GameObject:
   - component: {fileID: 1972933780}
   - component: {fileID: 1972933782}
   - component: {fileID: 1972933781}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59906,7 +59944,7 @@ GameObject:
   - component: {fileID: 2077599542}
   - component: {fileID: 2077599548}
   - component: {fileID: 2077599547}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63519,6 +63557,16 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3557349778144464384, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: -3557349778144464384, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.000017908564
+      objectReference: {fileID: 0}
     - target: {fileID: -1853094968961178454, guid: 8efbaa5885281604e81fe929ecd9f6e8,
         type: 3}
       propertyPath: m_BackGroundColor.a
@@ -63539,10 +63587,105 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -758812059840459789, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -758812059840459789, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -2.8866
+      objectReference: {fileID: 0}
+    - target: {fileID: -58154758222416511, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0.00007264972
+      objectReference: {fileID: 0}
+    - target: {fileID: -58154758222416511, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.00007725093
+      objectReference: {fileID: 0}
+    - target: {fileID: -58154758222416511, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -92.59833
+      objectReference: {fileID: 0}
+    - target: {fileID: 863916602039076574, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.000049699825
+      objectReference: {fileID: 0}
+    - target: {fileID: 863916602039076574, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.000055696095
+      objectReference: {fileID: 0}
+    - target: {fileID: 863916602039076574, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 43.179554
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8efbaa5885281604e81fe929ecd9f6e8,
         type: 3}
       propertyPath: m_Name
       value: Robot+AnimIdle3 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016498076671355196, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016498076671355196, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.000003891636
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689437601358832269, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789849855865351372, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.0000048297925
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789849855865351372, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.00007947889
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789849855865351372, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -35.515568
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183919018847305537, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183919018847305537, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 89.999985
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069940045730046351, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.99743
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069940045730046351, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 11.148356
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 8efbaa5885281604e81fe929ecd9f6e8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98021
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
