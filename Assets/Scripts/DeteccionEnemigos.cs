@@ -14,7 +14,7 @@ public class DeteccionEnemigos : MonoBehaviour
 
     //Para disparar
     [SerializeField]
-    bool canShoot;
+    public bool canShoot;
     [SerializeField]
     bool shootAb = false;
 
@@ -26,6 +26,9 @@ public class DeteccionEnemigos : MonoBehaviour
 
     //Para la animacion
     [SerializeField] Animator _animator;
+
+    //Para que la bala persiga
+    public GameObject robotADisparar;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +43,7 @@ public class DeteccionEnemigos : MonoBehaviour
         //Poner que si el tiempo es >=0 que se vea una imagen como que esta recargando y al pasar el tiempo se quita
         ExplosionDamage();
 
-        if (Input.GetButtonDown("Fire1"))// && shootAb)
+        if (Input.GetButtonDown("Fire1") && shootAb)
         {
             shootAb = false;
             tiempoRecarga = tiempo;
@@ -54,8 +57,11 @@ public class DeteccionEnemigos : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, radioAlcance, layerEnemigos);
         foreach (var hitCollider in hitColliders)
         {
-            if (canShoot == true && tiempoRecarga<=0)
+            if (canShoot == true && tiempoRecarga <= 0)
             {
+                robotADisparar = hitCollider.gameObject;
+                canShoot = false;
+                Debug.Log(hitCollider.gameObject.name);
                 shootAb = true;
             }
         }

@@ -18,6 +18,7 @@ public class GeneratePool : MonoBehaviour
         {
             GameObject balaCreada = Instantiate(bala, Vector3.zero, Quaternion.identity);
             balaCreada.GetComponent<Balas>().balasPool = this;//Balas sabe que tiene un xiaomi pop sacar push meter
+            balaCreada.GetComponent<Balas>().deteccionEnemigos = GetComponent<DeteccionEnemigos>();
             pool.Push(balaCreada);
             balaCreada.SetActive(false);
         }
