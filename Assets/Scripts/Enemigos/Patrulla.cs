@@ -12,6 +12,7 @@ public class Patrulla : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EnemysLeft.instance.AddEnemy();
         navMeshAgent.SetDestination(waypoints[0].position);
     }
 

@@ -49,8 +49,11 @@ public class DeteccionEnemigos : MonoBehaviour
             tiempoRecarga = tiempo;
             Disparar();
             Disparar2();
+            //Restar aqui el numero de balas
             _animator.SetTrigger("Disparo");
         }
+
+        //Hacer una cuenta para restar balas/que se añada la imagen de sombreado/Coger como coleccionable
     }
     void ExplosionDamage()
     {

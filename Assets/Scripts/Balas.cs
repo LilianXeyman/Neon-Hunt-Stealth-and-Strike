@@ -62,8 +62,9 @@ public class Balas : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemigos"))
         {
             Destroy(collision.gameObject);
-            balasPool.GuardarBala(gameObject);
             deteccionEnemigos.canShoot = true;
+            EnemysLeft.instance.RemoveEnemy();
+            balasPool.GuardarBala(gameObject);
         }
         else 
         {
