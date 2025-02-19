@@ -8,13 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class MenuEnPartida : MonoBehaviour
 {
+    [SerializeField]
+    DeteccionEnemigos deteccionEnemigos;
+
     //Para cambiar la escena
     public string Inicio;
 
     [SerializeField]
+    GameObject menuPausa;
+    [SerializeField]
     GameObject menuOpciones;
     private void Start()
     {
+        menuPausa.SetActive(false);
         menuOpciones.SetActive(false);
     }
     private void Update()
@@ -23,11 +29,13 @@ public class MenuEnPartida : MonoBehaviour
     }
     public void Pausa()
     {
-        menuOpciones.SetActive(true);
+        menuPausa.SetActive(true);
+        deteccionEnemigos.menuPausa = true;
     }
     public void Continuar()
     {
-        menuOpciones.SetActive(false);
+        menuPausa.SetActive(false);
+        deteccionEnemigos.menuPausa = false;
     }
     public void MenuPrincipal()
     {
@@ -40,5 +48,19 @@ public class MenuEnPartida : MonoBehaviour
 #else
         Application.Quit(); // Cierra la aplicación en la build
 #endif
+    }
+    public void Opciones()
+    {
+        menuPausa.SetActive(false);
+        menuOpciones.SetActive(true);
+    }
+    public void FullScreen()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
+    }
+    public void Volver()
+    {
+        menuPausa.SetActive(true);
+        menuOpciones.SetActive(false);
     }
 }

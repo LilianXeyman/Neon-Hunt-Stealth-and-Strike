@@ -168,6 +168,8 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            deteccionEnemigos = GetComponent<DeteccionEnemigos>();
         }
 
         private void Update()
@@ -176,7 +178,10 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
-            Move();
+            if (deteccionEnemigos.menuPausa == false)
+            {
+                Move();
+            }
         }
 
         private void LateUpdate()
@@ -231,91 +236,93 @@ namespace StarterAssets
 
         private void Move()
         {
-            // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-            //Desde aqui
-            float targetForwardTiltAmount = _input.sprint ? _sprintForwardTiltAmount : _forwardTiltAmount; //Haces una pregunta, si la respuesta es si ejecuta lo de antes de : si no lo de despues
-            float targetTiltSmoothTime = _input.sprint ? _sprintTiltSmoothTime : _tiltSmoothTime; //Hasta aqui
-            // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
-
-            // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-            //Para la rueda
-            if (_input.move != Vector2.zero)
-            {
-                Rueda.instance.RodarRueda();
-            }
-            else if (_input.move != Vector2.zero && _input.sprint)//Esto no funciona
-            {
-                Rueda.instance.Sprint();
-            }
-            // a reference to the players current horizontal velocity
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
-            float speedOffset = 0.1f;
-            float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
-
-            // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
-            {
-                // creates curved result rather than a linear one giving a more organic speed change
-                // note T in Lerp is clamped, so we don't need to clamp our speed
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
-
-                // round speed to 3 decimal places
-                _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            }
-            else
-            {
-                _speed = targetSpeed;
-            }
-
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-            if (_animationBlend < 0.01f) _animationBlend = 0f;
-
-            // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
-
-            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
-            {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
-
-                // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             
+                // set target speed based on move speed, sprint speed and if sprint is pressed
+                float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
                 //Desde aqui
-                //Para la rotacion mientras te mueves
-                float tiltAngleZ = Mathf.Clamp(-_input.move.y * targetForwardTiltAmount, -targetForwardTiltAmount, -targetForwardTiltAmount);// Esto va en x -_input.move.y
-                float tiltAnglex = Mathf.Clamp(targetForwardTiltAmount * 0.75f, targetForwardTiltAmount * 0.75f, -_input.move.x *targetForwardTiltAmount * 0.75f);
+                float targetForwardTiltAmount = _input.sprint ? _sprintForwardTiltAmount : _forwardTiltAmount; //Haces una pregunta, si la respuesta es si ejecuta lo de antes de : si no lo de despues
+                float targetTiltSmoothTime = _input.sprint ? _sprintTiltSmoothTime : _tiltSmoothTime; //Hasta aqui
+                                                                                                      // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
-                Quaternion targetTiltRotation = Quaternion.Euler(tiltAnglex, _robot.localEulerAngles.y, tiltAngleZ);//Quaternion targetTiltRotation = Quaternion.Euler(_robot.localEulerAngles.x, _robot.localEulerAngles.y, tiltAngleZ);
+                // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
+                // if there is no input, set the target speed to 0
+                if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+                //Para la rueda
+                if (_input.move != Vector2.zero)
+                {
+                    Rueda.instance.RodarRueda();
+                }
+                else if (_input.move != Vector2.zero && _input.sprint)//Esto no funciona
+                {
+                    Rueda.instance.Sprint();
+                }
+                // a reference to the players current horizontal velocity
+                float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
-                //Para que la rotacion sea paulatina
-                _currentTiltRotation = Quaternion.Slerp(_currentTiltRotation, targetTiltRotation, Time.deltaTime * targetTiltSmoothTime);
-                _robot.localRotation = _currentTiltRotation;
-            }
-            else 
-            {
-                _currentTiltRotation = Quaternion.Slerp(_currentTiltRotation, Quaternion.Euler(0, _robot.localEulerAngles.y, 0), Time.deltaTime * targetTiltSmoothTime);
-                _robot.localRotation = _currentTiltRotation;
-            }//Hasta aq
+                float speedOffset = 0.1f;
+                float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+
+                // accelerate or decelerate to target speed
+                if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
+                {
+                    // creates curved result rather than a linear one giving a more organic speed change
+                    // note T in Lerp is clamped, so we don't need to clamp our speed
+                    _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
+
+                    // round speed to 3 decimal places
+                    _speed = Mathf.Round(_speed * 1000f) / 1000f;
+                }
+                else
+                {
+                    _speed = targetSpeed;
+                }
+
+                _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+                if (_animationBlend < 0.01f) _animationBlend = 0f;
+
+                // normalise input direction
+                Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+
+                // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
+                // if there is a move input rotate player when the player is moving
+                if (_input.move != Vector2.zero)
+                {
+                    _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
+                    float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
+
+                    // rotate to face input direction relative to camera position
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+
+                    //Desde aqui
+                    //Para la rotacion mientras te mueves
+                    float tiltAngleZ = Mathf.Clamp(-_input.move.y * targetForwardTiltAmount, -targetForwardTiltAmount, -targetForwardTiltAmount);// Esto va en x -_input.move.y
+                    float tiltAnglex = Mathf.Clamp(targetForwardTiltAmount * 0.75f, targetForwardTiltAmount * 0.75f, -_input.move.x * targetForwardTiltAmount * 0.75f);
+
+                    Quaternion targetTiltRotation = Quaternion.Euler(tiltAnglex, _robot.localEulerAngles.y, tiltAngleZ);//Quaternion targetTiltRotation = Quaternion.Euler(_robot.localEulerAngles.x, _robot.localEulerAngles.y, tiltAngleZ);
+
+                    //Para que la rotacion sea paulatina
+                    _currentTiltRotation = Quaternion.Slerp(_currentTiltRotation, targetTiltRotation, Time.deltaTime * targetTiltSmoothTime);
+                    _robot.localRotation = _currentTiltRotation;
+                }
+                else
+                {
+                    _currentTiltRotation = Quaternion.Slerp(_currentTiltRotation, Quaternion.Euler(0, _robot.localEulerAngles.y, 0), Time.deltaTime * targetTiltSmoothTime);
+                    _robot.localRotation = _currentTiltRotation;
+                }//Hasta aq
 
 
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+                Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
-            // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+                // move the player
+                _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
-            // update animator if using character
-            if (_hasAnimator)
-            {
-                //_animator.SetFloat(_animIDSpeed, _animationBlend); //CambiarEsto
-                //_animator.SetFloat(_animIDMotionSpeed, inputMagnitude); //CambiarEsto
-            }
+                // update animator if using character
+                if (_hasAnimator)
+                {
+                    //_animator.SetFloat(_animIDSpeed, _animationBlend); //CambiarEsto
+                    //_animator.SetFloat(_animIDMotionSpeed, inputMagnitude); //CambiarEsto
+                }
+            
         }
 
         private void JumpAndGravity()
@@ -430,9 +437,11 @@ namespace StarterAssets
         //Mirar si dejo esto o lo cambio
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Municion") && deteccionEnemigos.balasTotales<3)
+            if (other.CompareTag("Municion") && deteccionEnemigos.balasTotales < 3)
             {
                 deteccionEnemigos.balasTotales += 1;
+                ControlMunicion.instance.RevisarCantidadBalas();
+                Destroy(other.gameObject);
             }
         }
     }

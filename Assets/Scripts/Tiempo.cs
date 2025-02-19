@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class Tiempo : MonoBehaviour
 {
     [SerializeField]
+    DeteccionEnemigos deteccionEnemigos;
+
+    [SerializeField]
     float tiempo;
     float minutos;
     float segundos;
@@ -25,14 +28,17 @@ public class Tiempo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tiempo = tiempo - Time.deltaTime;
-        minutos = Mathf.FloorToInt(tiempo / 60);
-        segundos = Mathf.FloorToInt(tiempo % 60);
-        textoTiempo.text = minutos.ToString("00") + " : "+ segundos.ToString("00"); //Tambien asi textoTiempo.text = $"{minutos:00}:{segundos:00}";
-
-        if (tiempo <= 0)
+        if (deteccionEnemigos.menuPausa == false)
         {
-            SceneManager.LoadScene(Derrota);
+            tiempo = tiempo - Time.deltaTime;
+            minutos = Mathf.FloorToInt(tiempo / 60);
+            segundos = Mathf.FloorToInt(tiempo % 60);
+            textoTiempo.text = minutos.ToString("00") + " : " + segundos.ToString("00"); //Tambien asi textoTiempo.text = $"{minutos:00}:{segundos:00}";
+
+            if (tiempo <= 0)
+            {
+                SceneManager.LoadScene(Derrota);
+            }
         }
     }
 }

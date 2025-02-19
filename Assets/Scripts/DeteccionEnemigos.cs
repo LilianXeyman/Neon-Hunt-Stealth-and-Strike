@@ -38,6 +38,9 @@ public class DeteccionEnemigos : MonoBehaviour
     [SerializeField]
     GameObject mirilla;
 
+    //bool para el movimiento del personaje
+    public bool menuPausa = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +55,7 @@ public class DeteccionEnemigos : MonoBehaviour
         //Poner que si el tiempo es >=0 que se vea una imagen como que esta recargando y al pasar el tiempo se quita
         ExplosionDamage();
 
-        if (Input.GetButtonDown("Fire1") && shootAb)
+        if (Input.GetButtonDown("Fire1") && shootAb && menuPausa == false)
         {
             LeanTween.scale(mirilla, Vector3.zero, 0.25f);
             shootAb = false;
@@ -61,6 +64,7 @@ public class DeteccionEnemigos : MonoBehaviour
             Disparar2();
             //Restar aqui el numero de balas
             balasTotales -= 1;
+            ControlMunicion.instance.RevisarCantidadBalas();
             _animator.SetTrigger("Disparo");
         }
 
