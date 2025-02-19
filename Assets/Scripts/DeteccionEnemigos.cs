@@ -37,6 +37,8 @@ public class DeteccionEnemigos : MonoBehaviour
     //Imagen Apuntar
     [SerializeField]
     GameObject mirilla;
+    [SerializeField]
+    LeanTweenType animCurv;
 
     //bool para el movimiento del personaje
     public bool menuPausa = false;
@@ -57,7 +59,7 @@ public class DeteccionEnemigos : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && shootAb && menuPausa == false)
         {
-            LeanTween.scale(mirilla, Vector3.zero, 0.25f);
+            LeanTween.scale(mirilla, Vector3.zero, 0f).setEase(animCurv);
             shootAb = false;
             tiempoRecarga = tiempo;
             Disparar();
@@ -81,9 +83,10 @@ public class DeteccionEnemigos : MonoBehaviour
                 canShoot = false;
                 Debug.Log(hitCollider.gameObject.name);
                 shootAb = true;
-                LeanTween.scale(mirilla, Vector3.one, 0.25f);
+                LeanTween.scale(mirilla, Vector3.one, 0.25f).setEase(animCurv);
             }
         }
+        //Hacer que si se sale del area el canShoot vuelve a ser true <-Para que busque un nuevo objetivo // Poner en los enemigos un distintivo para que se sepa que es a ese al que se le va a apuntar //Agrandar el mapa y añadir más enemigos // Pantalla victoria y derrota //sonidos "efectos especiales" (disparos) //animaciones //Modo Tablet
     }
     void Disparar()
     {

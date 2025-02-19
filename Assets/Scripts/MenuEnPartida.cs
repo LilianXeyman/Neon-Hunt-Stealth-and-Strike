@@ -25,7 +25,7 @@ public class MenuEnPartida : MonoBehaviour
     }
     private void Update()
     {
-        
+        //Poner que si se le da al escape o al boton option que se abra el menu de pausa
     }
     public void Pausa()
     {

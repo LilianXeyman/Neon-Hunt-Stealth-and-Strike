@@ -36576,9 +36576,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deteccionEnemigos: {fileID: 1148757367}
   imagenBalas:
-  - {fileID: 1501401217}
-  - {fileID: 307492062}
   - {fileID: 1908558424}
+  - {fileID: 307492062}
+  - {fileID: 1501401217}
   noBalas: {fileID: 406160671}
 --- !u!4 &1128368756
 Transform:
@@ -39594,8 +39594,9 @@ MonoBehaviour:
   tiempo: 10
   _animator: {fileID: 2185792758308783636}
   robotADisparar: {fileID: 0}
-  balasTotales: 3
+  balasTotales: 2
   mirilla: {fileID: 1854500214}
+  animCurv: 30
   menuPausa: 0
 --- !u!114 &1148757368
 MonoBehaviour:
@@ -44053,7 +44054,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0d19c71498606dc409ca3f8a5f3959aa, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -49998,7 +49999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.40392157}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.20392157}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
