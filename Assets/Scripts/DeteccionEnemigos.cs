@@ -30,10 +30,19 @@ public class DeteccionEnemigos : MonoBehaviour
     //Para que la bala persiga
     public GameObject robotADisparar;
 
+    //Cuenta para las balas
+    [SerializeField]
+    public int balasTotales=3;
+
+    //Imagen Apuntar
+    [SerializeField]
+    GameObject mirilla;
+
     // Start is called before the first frame update
     void Start()
     {
         canShoot = true;
+        LeanTween.scale(mirilla, Vector3.zero, 0);
     }
 
     // Update is called once per frame
@@ -45,11 +54,13 @@ public class DeteccionEnemigos : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && shootAb)
         {
+            LeanTween.scale(mirilla, Vector3.zero, 0.25f);
             shootAb = false;
             tiempoRecarga = tiempo;
             Disparar();
             Disparar2();
             //Restar aqui el numero de balas
+            balasTotales -= 1;
             _animator.SetTrigger("Disparo");
         }
 
@@ -66,6 +77,7 @@ public class DeteccionEnemigos : MonoBehaviour
                 canShoot = false;
                 Debug.Log(hitCollider.gameObject.name);
                 shootAb = true;
+                LeanTween.scale(mirilla, Vector3.one, 0.25f);
             }
         }
     }

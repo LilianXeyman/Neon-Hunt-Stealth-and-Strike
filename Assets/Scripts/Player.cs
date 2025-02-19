@@ -15,6 +15,9 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        [SerializeField]
+        DeteccionEnemigos deteccionEnemigos;
+
         [Header("References")]
         [Tooltip("Robot geometry")]
         [SerializeField] private Transform _robot;
@@ -422,6 +425,14 @@ namespace StarterAssets
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+            }
+        }
+        //Mirar si dejo esto o lo cambio
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Municion") && deteccionEnemigos.balasTotales<3)
+            {
+                deteccionEnemigos.balasTotales += 1;
             }
         }
     }
