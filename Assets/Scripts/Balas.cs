@@ -20,6 +20,8 @@ public class Balas : MonoBehaviour
 
     Rigidbody balaRb;
 
+    bool puedeRestar;
+
     //public NavMeshAgent navMeshAgent;
     void Start()
     {
@@ -63,15 +65,25 @@ public class Balas : MonoBehaviour
         {
             Destroy(collision.gameObject);
             deteccionEnemigos.canShoot = true;
-            EnemysLeft.instance.RemoveEnemy();
+            EnemysLeft.instance.puedeSumar = true;
+            if (EnemysLeft.instance.puedeSumar ==true)
+            {
+                EnemysLeft.instance.puedeSumar = false;
+                EnemysLeft.instance.RemoveEnemy();
+            }
             balasPool.GuardarBala(gameObject);
         }
         else 
         {
             balasPool.GuardarBala(gameObject);
             deteccionEnemigos.canShoot = true;
-            EnemysLeft.instance.puntuacionFinal -= EnemysLeft.instance.valorBalas;
-            EnemysLeft.instance.puntuacionEnPantalla.text = EnemysLeft.instance.puntuacionFinal.ToString("00000");
+            puedeRestar = true;
+            if (puedeRestar)
+            {
+                puedeRestar = false;
+                EnemysLeft.instance.puntuacionFinal = EnemysLeft.instance.puntuacionFinal - EnemysLeft.instance.valorBalas;
+                EnemysLeft.instance.puntuacionEnPantalla.text = EnemysLeft.instance.puntuacionFinal.ToString("0000");
+            }
         }
     }
 }

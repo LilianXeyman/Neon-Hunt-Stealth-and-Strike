@@ -26,6 +26,8 @@ public class EnemysLeft : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI puntuacionEnPantallaFinalDerrota;
 
+    public bool puedeSumar;
+
     //Pantalla Victoria
     [SerializeField]
     GameObject pantallaVictoria;
@@ -62,9 +64,10 @@ public class EnemysLeft : MonoBehaviour
             LeanTween.scale(infoPantallaVictoria, Vector3.one, 2f).setEase(animCurv);
             //Sumar el resto del tiempo en la puntuacion, por cada segundo son 10 puntos
             puntuacionFinal = puntuacionFinal + (Mathf.FloorToInt(Tiempo.instance.minutos * 60f) + Mathf.FloorToInt(Tiempo.instance.segundos))*10;
-            puntuacionEnPantallaFinalVictoria.text = puntuacionFinal.ToString("00000");
+            puntuacionEnPantallaFinalVictoria.text = puntuacionFinal.ToString("0000");
             //Falta restar la puntuacion
         }
+        puedeSumar = true;
     }
     void ActualizarEtiqueta()
     {
@@ -77,10 +80,11 @@ public class EnemysLeft : MonoBehaviour
     }
     public void ActualizarPuntuacion()
     {
-        puntuacionFinal += valorRobots;
-        puntuacionFinal -= valorBalas;
-        puntuacionEnPantalla.text = puntuacionFinal.ToString("00000");
-        puntuacionEnPantallaFinalVictoria.text = puntuacionFinal.ToString("00000");
-        puntuacionEnPantallaFinalDerrota.text = puntuacionFinal.ToString("00000");
+        puntuacionFinal = puntuacionFinal + valorRobots;
+        //puntuacionFinal += valorRobots;
+        //puntuacionFinal -= valorBalas;
+        puntuacionEnPantalla.text = puntuacionFinal.ToString("0000");
+        puntuacionEnPantallaFinalVictoria.text = puntuacionFinal.ToString("0000");
+        puntuacionEnPantallaFinalDerrota.text = puntuacionFinal.ToString("0000");
     }
 }
