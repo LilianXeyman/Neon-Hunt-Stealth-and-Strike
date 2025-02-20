@@ -6,19 +6,32 @@ using UnityEngine.SceneManagement;
 
 public class Tiempo : MonoBehaviour
 {
+    public static Tiempo instance;
+
     [SerializeField]
     DeteccionEnemigos deteccionEnemigos;
 
     [SerializeField]
     float tiempo;
-    float minutos;
-    float segundos;
+    public float minutos;
+    public float segundos;
     [SerializeField]
     TextMeshProUGUI textoTiempo;
 
     //Para cambiar la escena
     public string Derrota;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +50,7 @@ public class Tiempo : MonoBehaviour
 
             if (tiempo <= 0)
             {
-                SceneManager.LoadScene(Derrota);
+                SceneManager.LoadScene(Derrota);//Cambiar condicion
             }
         }
     }

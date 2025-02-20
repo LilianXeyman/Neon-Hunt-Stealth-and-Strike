@@ -70,6 +70,8 @@ public class Balas : MonoBehaviour
         {
             balasPool.GuardarBala(gameObject);
             deteccionEnemigos.canShoot = true;
+            EnemysLeft.instance.puntuacionFinal -= EnemysLeft.instance.valorBalas;
+            EnemysLeft.instance.puntuacionEnPantalla.text = EnemysLeft.instance.puntuacionFinal.ToString("00000");
         }
     }
 }

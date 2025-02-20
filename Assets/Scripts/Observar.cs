@@ -13,9 +13,18 @@ public class Observar : MonoBehaviour
     [SerializeField]
     float distancia;
 
-    private void Update()
+    //Pantalla Derrota
+    [SerializeField]
+    GameObject pantallaDerrota;
+    [SerializeField]
+    GameObject infoPantallaDerrota;
+    [SerializeField]
+    LeanTweenType animCurv;
+
+    private void Start()
     {
-        
+        LeanTween.scale(infoPantallaDerrota, Vector3.zero, 0f);
+        pantallaDerrota.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -25,7 +34,8 @@ public class Observar : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                SceneManager.LoadScene(Derrota);
+                pantallaDerrota.SetActive(true);
+                LeanTween.scale(infoPantallaDerrota, Vector3.one, 2f).setEase(animCurv);
             }
         }
     }
