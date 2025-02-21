@@ -35,6 +35,10 @@ public class EnemysLeft : MonoBehaviour
     GameObject infoPantallaVictoria;
     [SerializeField]
     LeanTweenType animCurv;
+    [SerializeField]
+    GameObject miniMapa;
+    [SerializeField]
+    GameObject controles;
     private void Awake()
     {
         if (instance == null)
@@ -50,6 +54,8 @@ public class EnemysLeft : MonoBehaviour
     {
         LeanTween.scale(infoPantallaVictoria, Vector3.zero, 0f);
         pantallaVictoria.SetActive(false);
+        miniMapa.SetActive(true);
+        controles.SetActive(true);
     }
     public void RemoveEnemy()
     {
@@ -60,6 +66,8 @@ public class EnemysLeft : MonoBehaviour
         {
             Debug.Log("Mision finalizada");
             //Pantalla Victoria
+            miniMapa.SetActive(false);
+            controles.SetActive(false);
             pantallaVictoria.SetActive(true);
             LeanTween.scale(infoPantallaVictoria, Vector3.one, 2f).setEase(animCurv);
             //Sumar el resto del tiempo en la puntuacion, por cada segundo son 10 puntos

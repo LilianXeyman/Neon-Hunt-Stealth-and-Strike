@@ -10184,6 +10184,8 @@ MonoBehaviour:
   pantallaDerrota: {fileID: 1252735745}
   infoPantallaDerrota: {fileID: 996982815}
   animCurv: 30
+  miniMapa: {fileID: 1566872989}
+  controles: {fileID: 1251356025}
 --- !u!43 &257526587
 Mesh:
   m_ObjectHideFlags: 0
@@ -21976,6 +21978,8 @@ MonoBehaviour:
   pantallaDerrota: {fileID: 1252735745}
   infoPantallaDerrota: {fileID: 996982815}
   animCurv: 30
+  miniMapa: {fileID: 1566872989}
+  controles: {fileID: 1251356025}
 --- !u!1 &617188308
 GameObject:
   m_ObjectHideFlags: 0
@@ -35589,8 +35593,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.1142, y: 1.9245}
-  m_SizeDelta: {x: 2010.9279, y: 1134.3315}
+  m_AnchoredPosition: {x: -1.974, y: 12.7338}
+  m_SizeDelta: {x: 2251.8208, y: 1341.2524}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1014075404
 MonoBehaviour:
@@ -35792,6 +35796,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 94
       objectReference: {fileID: 0}
+    - target: {fileID: 8890774966862588244, guid: 2f7f3dde7ae722a4aafffe20691ad702,
+        type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: 1148757364}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41218,8 +41227,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.1142, y: 1.9245}
-  m_SizeDelta: {x: 2010.9279, y: 1134.3315}
+  m_AnchoredPosition: {x: 2.0021, y: 7.1979}
+  m_SizeDelta: {x: 2235.0664, y: 1248.1538}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1171818208
 MonoBehaviour:
@@ -41623,6 +41632,8 @@ MonoBehaviour:
   pantallaDerrota: {fileID: 1252735745}
   infoPantallaDerrota: {fileID: 996982815}
   animCurv: 30
+  miniMapa: {fileID: 1566872989}
+  controles: {fileID: 1251356025}
 --- !u!1 &1188228146
 GameObject:
   m_ObjectHideFlags: 0
@@ -42640,6 +42651,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1251356025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6751388636123340836, guid: 2f7f3dde7ae722a4aafffe20691ad702,
+    type: 3}
+  m_PrefabInstance: {fileID: 1021911952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1252735745
 GameObject:
   m_ObjectHideFlags: 0
@@ -47998,6 +48015,8 @@ MonoBehaviour:
   pantallaVictoria: {fileID: 149294871}
   infoPantallaVictoria: {fileID: 100649950}
   animCurv: 30
+  miniMapa: {fileID: 1566872989}
+  controles: {fileID: 1251356025}
 --- !u!4 &1483400906
 Transform:
   m_ObjectHideFlags: 0
@@ -59099,6 +59118,8 @@ MonoBehaviour:
   pantallaDerrota: {fileID: 1252735745}
   infoPantallaDerrota: {fileID: 996982815}
   animCurv: 30
+  miniMapa: {fileID: 1566872989}
+  controles: {fileID: 1251356025}
 --- !u!43 &1879350722
 Mesh:
   m_ObjectHideFlags: 0

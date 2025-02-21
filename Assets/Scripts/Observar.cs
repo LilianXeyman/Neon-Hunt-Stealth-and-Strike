@@ -20,11 +20,18 @@ public class Observar : MonoBehaviour
     GameObject infoPantallaDerrota;
     [SerializeField]
     LeanTweenType animCurv;
+    [SerializeField]
+    GameObject miniMapa;
+    [SerializeField]
+    GameObject controles;
+
 
     private void Start()
     {
         LeanTween.scale(infoPantallaDerrota, Vector3.zero, 0f);
         pantallaDerrota.SetActive(false);
+        miniMapa.SetActive(true);
+        controles.SetActive(true);
     }
 
     private void FixedUpdate()
@@ -36,6 +43,8 @@ public class Observar : MonoBehaviour
             {
                 pantallaDerrota.SetActive(true);
                 LeanTween.scale(infoPantallaDerrota, Vector3.one, 2f).setEase(animCurv);
+                miniMapa.SetActive(false);
+                controles.SetActive(false);
             }
         }
     }
