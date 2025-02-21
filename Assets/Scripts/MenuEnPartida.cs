@@ -18,14 +18,32 @@ public class MenuEnPartida : MonoBehaviour
     GameObject menuPausa;
     [SerializeField]
     GameObject menuOpciones;
+
+    bool cerrarPausa;
     private void Start()
     {
         menuPausa.SetActive(false);
         menuOpciones.SetActive(false);
+        cerrarPausa = false;
     }
     private void Update()
     {
         //Poner que si se le da al escape o al boton option que se abra el menu de pausa
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (!cerrarPausa)
+            {
+                menuPausa.SetActive(true);
+                deteccionEnemigos.menuPausa = true;
+                cerrarPausa = true;
+            }
+            else
+            {
+                menuPausa.SetActive(false);
+                deteccionEnemigos.menuPausa = false;
+                cerrarPausa = false;
+            }
+        }
     }
     public void Pausa()
     {
