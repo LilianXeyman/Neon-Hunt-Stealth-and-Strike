@@ -102,7 +102,7 @@ public class Menu : MonoBehaviour
         LeanTween.moveLocalY(imagenVs2, 1200, 0);
 
         //Pantalla Completa
-        FullScreen();
+        Screen.fullScreen = Screen.fullScreen;
 
         //Para los clicks en el menu
         Cursor.lockState = CursorLockMode.None; // Asegura que el cursor está libre

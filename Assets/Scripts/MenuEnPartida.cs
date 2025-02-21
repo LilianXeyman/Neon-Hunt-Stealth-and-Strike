@@ -13,6 +13,7 @@ public class MenuEnPartida : MonoBehaviour
 
     //Para cambiar la escena
     public string Inicio;
+    public string SampleScene;
 
     [SerializeField]
     GameObject menuPausa;
@@ -80,5 +81,9 @@ public class MenuEnPartida : MonoBehaviour
     {
         menuPausa.SetActive(true);
         menuOpciones.SetActive(false);
+    }
+    public void Reintentar()
+    {
+        SceneManager.LoadScene(SampleScene);
     }
 }
