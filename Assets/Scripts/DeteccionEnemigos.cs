@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public class DeteccionEnemigos : MonoBehaviour
@@ -53,12 +54,15 @@ public class DeteccionEnemigos : MonoBehaviour
     [SerializeField]
     GameObject efectoHumoPrefab;
 
+    StarterAssetsInputs input;
+
     // Start is called before the first frame update
     void Start()
     {
         canShoot = true;
         LeanTween.scale(mirilla, Vector3.zero, 0);
         audioSource = GetComponent<AudioSource>();
+        input = GetComponent<StarterAssetsInputs>();
     }
 
     // Update is called once per frame
@@ -68,7 +72,7 @@ public class DeteccionEnemigos : MonoBehaviour
         //Poner que si el tiempo es >=0 que se vea una imagen como que esta recargando y al pasar el tiempo se quita
         ExplosionDamage();
 
-        if (Input.GetButtonDown("Fire1") && shootAb && menuPausa == false)
+        if (input.shoot && shootAb && menuPausa == false)
         {
             audioSource.Play();
             LeanTween.scale(mirilla, Vector3.zero, 0f).setEase(animCurv);
