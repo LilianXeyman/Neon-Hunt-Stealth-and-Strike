@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
@@ -45,8 +46,11 @@ namespace StarterAssets
         private float _sprintTiltSmoothTime = 5f;
 
         //audio
+        [SerializeField]
+        AudioSource audioSource;
         public AudioClip LandingAudioClip;
-        public AudioClip[] FootstepAudioClips;
+        public AudioClip cogerMunicion;//Añadido 
+        public AudioClip FootstepAudioClips;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
@@ -170,6 +174,7 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
 
             deteccionEnemigos = GetComponent<DeteccionEnemigos>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -181,6 +186,22 @@ namespace StarterAssets
             if (deteccionEnemigos.menuPausa == false)
             {
                 Move();
+                /*if (_input.move != Vector2.zero)
+                {
+                    if (!audioSource.isPlaying) // Si no está sonando el audio, lo reproducimos
+                    {
+                        audioSource.clip = FootstepAudioClips; // Aseguramos que el clip sea el correcto
+                        audioSource.loop = true; // Hacemos que el audio sea un bucle
+                        audioSource.Play();      // Iniciamos el audio
+                    }
+                }
+                else
+                {
+                    if (audioSource.isPlaying && audioSource.clip == FootstepAudioClips)
+                    {
+                        audioSource.Stop(); // Detenemos el audio si el personaje está quieto
+                    }
+                }*/
             }
         }
 
@@ -419,11 +440,12 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                if (FootstepAudioClips.Length > 0)
+                //AudioSource.PlayClipAtPoint(FootstepAudioClips, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                /*if (FootstepAudioClips.Length > 0)
                 {
                     //var index = Random.Range(0, FootstepAudioClips.Length);
                     //AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-                }
+                }*/
             }
         }
 
@@ -441,6 +463,7 @@ namespace StarterAssets
             {
                 deteccionEnemigos.balasTotales += 1;
                 ControlMunicion.instance.RevisarCantidadBalas();
+                audioSource.PlayOneShot(cogerMunicion);
                 Destroy(other.gameObject);
             }
         }

@@ -27,6 +27,9 @@ public class Balas : MonoBehaviour
     GameObject explosion;
     [SerializeField]
     GameObject marcasExplosion;
+    [SerializeField]
+    AudioSource audioSource;
+    public AudioClip explosionSound;
 
     //public NavMeshAgent navMeshAgent;
     void Start()
@@ -34,6 +37,7 @@ public class Balas : MonoBehaviour
         //navMeshAgent = GetComponent<NavMeshAgent>();
         tiempoReset = coolDown;
         balaRb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -93,5 +97,6 @@ public class Balas : MonoBehaviour
                 EnemysLeft.instance.puntuacionEnPantalla.text = EnemysLeft.instance.puntuacionFinal.ToString("0000");
             }
         }
+        audioSource.PlayOneShot(explosionSound); ;//Mirar esto porque como se destruye no suena
     }
 }

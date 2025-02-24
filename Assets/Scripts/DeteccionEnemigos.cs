@@ -72,7 +72,7 @@ public class DeteccionEnemigos : MonoBehaviour
         //Poner que si el tiempo es >=0 que se vea una imagen como que esta recargando y al pasar el tiempo se quita
         ExplosionDamage();
 
-        if (input.shoot && shootAb && menuPausa == false)
+        if (input.shoot && shootAb && menuPausa == false) //o el fire1 Input.GetButtonDown("Fire1)
         {
             audioSource.Play();
             LeanTween.scale(mirilla, Vector3.zero, 0f).setEase(animCurv);

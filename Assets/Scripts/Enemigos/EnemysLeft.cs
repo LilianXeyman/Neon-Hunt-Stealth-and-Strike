@@ -76,7 +76,7 @@ public class EnemysLeft : MonoBehaviour
         totalFPS += fpsNumero;
         frameCount ++;
         timeElapsed += Time.deltaTime;
-        if (timeElapsed >= 60f)
+        if (timeElapsed >= 10f)
         {
             float fpsPromedio = totalFPS / frameCount;
             fpsEnPantalla.text = "FPS: " + Mathf.RoundToInt(fpsPromedio);
