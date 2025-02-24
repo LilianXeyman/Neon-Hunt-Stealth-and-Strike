@@ -82,18 +82,17 @@ public class DeteccionEnemigos : MonoBehaviour
                 robotADisparar = hitCollider.gameObject;
                 canShoot = false;
                 Debug.Log(hitCollider.gameObject.name);
+               /* if (hitCollider != robotADisparar && !canShoot)
+                {
+                    robotADisparar = null;
+                    canShoot = true;
+                }
+                Debug.Log(robotADisparar.name);*/
                 shootAb = true;
                 LeanTween.scale(mirilla, Vector3.one, 0.25f).setEase(animCurv);
             }
-
-            /*if (hitCollider != robotADisparar && !canShoot)
-            {
-                robotADisparar = null;
-                canShoot = true;
-            }*/
         }
-        //Debug.Log(robotADisparar.name);
-        //Hacer que si se sale del area el canShoot vuelve a ser true <-Para que busque un nuevo objetivo // Poner en los enemigos un distintivo para que se sepa que es a ese al que se le va a apuntar //Agrandar el mapa y añadir más enemigos //sonidos "efectos especiales" (disparos) //animaciones //Modo Tablet
+        //Hacer que si se sale del area el canShoot vuelve a ser true <-Para que busque un nuevo objetivo // Poner en los enemigos un distintivo para que se sepa que es a ese al que se le va a apuntar //Agrandar el mapa y añadir más enemigos //sonidos "efectos especiales" (disparos)
     }
     void Disparar()
     {
