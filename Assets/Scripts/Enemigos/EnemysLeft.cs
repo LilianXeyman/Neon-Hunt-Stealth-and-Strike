@@ -39,6 +39,15 @@ public class EnemysLeft : MonoBehaviour
     GameObject miniMapa;
     [SerializeField]
     GameObject controles;
+
+    //Para ver los fps
+    [SerializeField]
+    TextMeshProUGUI fpsEnPantalla;
+    float fpsNumero;
+    float totalFPS;
+    int frameCount;
+    float timeElapsed;
+
     private void Awake()
     {
         if (instance == null)
@@ -56,6 +65,25 @@ public class EnemysLeft : MonoBehaviour
         pantallaVictoria.SetActive(false);
         miniMapa.SetActive(true);
         controles.SetActive(true);
+
+        Application.targetFrameRate = 140;
+        fpsNumero = 1f / Time.deltaTime;
+        fpsEnPantalla.text = "FPS: " + Mathf.RoundToInt(fpsNumero);
+    }
+    void Update()
+    {
+        fpsNumero = 1f / Time.deltaTime;
+        totalFPS += fpsNumero;
+        frameCount ++;
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed >= 60f)
+        {
+            float fpsPromedio = totalFPS / frameCount;
+            fpsEnPantalla.text = "FPS: " + Mathf.RoundToInt(fpsPromedio);
+            totalFPS = 0f;
+            frameCount = 0;
+            timeElapsed = 0f;
+        }
     }
     public void RemoveEnemy()
     {

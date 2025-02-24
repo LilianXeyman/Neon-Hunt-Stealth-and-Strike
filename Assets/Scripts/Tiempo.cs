@@ -18,6 +18,9 @@ public class Tiempo : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI textoTiempo;
 
+    [SerializeField]
+    GameObject canvasMuerte;
+
     //Para cambiar la escena
     public string Derrota;
 
@@ -35,7 +38,7 @@ public class Tiempo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        canvasMuerte.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,7 +53,7 @@ public class Tiempo : MonoBehaviour
 
             if (tiempo <= 0)
             {
-                SceneManager.LoadScene(Derrota);//Cambiar condicion
+                canvasMuerte.SetActive(true);
             }
         }
     }
