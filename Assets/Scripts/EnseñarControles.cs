@@ -19,7 +19,6 @@ public class EnseñarControles : MonoBehaviour
             Debug.Log("Estás usando una PC");
             // Aquí va el código específico para PC
          controles.SetActive(false);
-
         // Si el dispositivo no es ninguno de los anteriores
 #else
             Debug.Log("Dispositivo desconocido");
