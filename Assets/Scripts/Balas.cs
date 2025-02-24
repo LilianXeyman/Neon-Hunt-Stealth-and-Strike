@@ -22,6 +22,12 @@ public class Balas : MonoBehaviour
 
     bool puedeRestar;
 
+    //Efectos especiales
+    [SerializeField]
+    GameObject explosion;
+    [SerializeField]
+    GameObject marcasExplosion;
+
     //public NavMeshAgent navMeshAgent;
     void Start()
     {
@@ -64,6 +70,7 @@ public class Balas : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemigos"))
         {
             Destroy(collision.gameObject);
+            Instantiate(explosion, transform.position, Quaternion.identity);
             deteccionEnemigos.canShoot = true;
             EnemysLeft.instance.puedeSumar = true;
             if (EnemysLeft.instance.puedeSumar ==true)
@@ -76,6 +83,7 @@ public class Balas : MonoBehaviour
         else 
         {
             balasPool.GuardarBala(gameObject);
+            Instantiate(marcasExplosion, transform.position, Quaternion.identity);
             deteccionEnemigos.canShoot = true;
             puedeRestar = true;
             if (puedeRestar)

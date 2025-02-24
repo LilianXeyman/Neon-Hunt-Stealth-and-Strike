@@ -43,11 +43,22 @@ public class DeteccionEnemigos : MonoBehaviour
     //bool para el movimiento del personaje
     public bool menuPausa = false;
 
+    //Para la musica
+    [SerializeField]
+    AudioSource audioSource;
+
+    //Efectos especiales
+    [SerializeField]
+    GameObject efectoDisparoPrefab;
+    [SerializeField]
+    GameObject efectoHumoPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
         canShoot = true;
         LeanTween.scale(mirilla, Vector3.zero, 0);
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -59,6 +70,7 @@ public class DeteccionEnemigos : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && shootAb && menuPausa == false)
         {
+            audioSource.Play();
             LeanTween.scale(mirilla, Vector3.zero, 0f).setEase(animCurv);
             shootAb = false;
             tiempoRecarga = tiempo;
@@ -100,6 +112,10 @@ public class DeteccionEnemigos : MonoBehaviour
         balaActual.transform.rotation = gameObject.transform.rotation;
         balaActual.transform.position = gameObject.transform.position + transform.up * 1.05f + transform.forward * 1.5f+ transform.right * 0.75f;//transform. right / left //Para el arma derecha
         balaActual.SetActive(true);
+        // Instanciar los efectos de disparo y humo en la posición de la bala
+        Instantiate(efectoDisparoPrefab, balaActual.transform.position, Quaternion.identity); // Efecto de disparo
+        Instantiate(efectoHumoPrefab, balaActual.transform.position, Quaternion.identity);    // Efecto de humo
+
     }
     void Disparar2()
     {
@@ -107,6 +123,10 @@ public class DeteccionEnemigos : MonoBehaviour
         balaActual.transform.rotation = gameObject.transform.rotation;
         balaActual.transform.position = gameObject.transform.position + transform.up * 1.60f + transform.forward * 0.75f + transform.right * -0.65f;//transform. right / left //Para el arma derecha
         balaActual.SetActive(true);
+        // Instanciar los efectos de disparo y humo en la posición de la bala
+        Instantiate(efectoDisparoPrefab, balaActual.transform.position, Quaternion.identity); // Efecto de disparo
+        Instantiate(efectoHumoPrefab, balaActual.transform.position, Quaternion.identity);    // Efecto de humo
+
     }
 
     private void OnDrawGizmos()

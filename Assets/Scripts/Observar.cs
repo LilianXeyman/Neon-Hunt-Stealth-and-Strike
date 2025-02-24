@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Observar : MonoBehaviour
 {
+    [SerializeField]
+    DeteccionEnemigos deteccionEnemigos;
+
     //Para cambiar la escena
     public string Derrota;
 
@@ -42,6 +45,7 @@ public class Observar : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 pantallaDerrota.SetActive(true);
+                deteccionEnemigos.menuPausa = true;
                 LeanTween.scale(infoPantallaDerrota, Vector3.one, 2f).setEase(animCurv);
                 miniMapa.SetActive(false);
                 controles.SetActive(false);

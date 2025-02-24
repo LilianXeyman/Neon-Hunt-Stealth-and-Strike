@@ -126,6 +126,8 @@ MonoBehaviour:
   deteccionEnemigos: {fileID: 0}
   coolDown: 5
   velocidadBala: 10
+  explosion: {fileID: 100010, guid: 03bed77f8f953384986f1efc7c39b53f, type: 3}
+  marcasExplosion: {fileID: 100002, guid: 9c4e7c622ad35e04db93e5c31f5e9a0f, type: 3}
 --- !u!65 &4797297373475681809
 BoxCollider:
   m_ObjectHideFlags: 0

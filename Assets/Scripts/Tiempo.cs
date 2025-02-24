@@ -54,6 +54,7 @@ public class Tiempo : MonoBehaviour
             if (tiempo <= 0)
             {
                 canvasMuerte.SetActive(true);
+                deteccionEnemigos.menuPausa = true;
             }
         }
     }
