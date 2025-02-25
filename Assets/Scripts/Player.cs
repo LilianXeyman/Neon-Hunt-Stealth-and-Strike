@@ -48,6 +48,8 @@ namespace StarterAssets
         //audio
         [SerializeField]
         AudioSource audioSource;
+        /*[SerializeField]
+        AudioSource audioSourceCamera;*/
         public AudioClip LandingAudioClip;
         public AudioClip cogerMunicion;//Añadido 
         public AudioClip FootstepAudioClips;
@@ -188,18 +190,18 @@ namespace StarterAssets
                 Move();
                 /*if (_input.move != Vector2.zero)
                 {
-                    if (!audioSource.isPlaying) // Si no está sonando el audio, lo reproducimos
+                    if (!audioSourceCamera.isPlaying) // Si no está sonando el audio, lo reproducimos
                     {
                         audioSource.clip = FootstepAudioClips; // Aseguramos que el clip sea el correcto
-                        audioSource.loop = true; // Hacemos que el audio sea un bucle
-                        audioSource.Play();      // Iniciamos el audio
+                        audioSourceCamera.loop = true; // Hacemos que el audio sea un bucle
+                        audioSourceCamera.Play();      // Iniciamos el audio
                     }
                 }
                 else
                 {
-                    if (audioSource.isPlaying && audioSource.clip == FootstepAudioClips)
+                    if (audioSourceCamera.isPlaying && audioSource.clip == FootstepAudioClips)
                     {
-                        audioSource.Stop(); // Detenemos el audio si el personaje está quieto
+                        audioSourceCamera.Stop(); // Detenemos el audio si el personaje está quieto
                     }
                 }*/
             }

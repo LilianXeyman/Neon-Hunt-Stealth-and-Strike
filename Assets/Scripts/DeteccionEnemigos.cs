@@ -47,6 +47,12 @@ public class DeteccionEnemigos : MonoBehaviour
     //Para la musica
     [SerializeField]
     AudioSource audioSource;
+    [SerializeField]
+    AudioClip shootSound;
+    [SerializeField]
+    AudioClip recharge;
+    [SerializeField]
+    AudioClip alerta;
 
     //Efectos especiales
     [SerializeField]
@@ -74,7 +80,7 @@ public class DeteccionEnemigos : MonoBehaviour
 
         if (input.shoot && shootAb && menuPausa == false) //o el fire1 Input.GetButtonDown("Fire1)
         {
-            audioSource.Play();
+            audioSource.PlayOneShot(shootSound);
             LeanTween.scale(mirilla, Vector3.zero, 0f).setEase(animCurv);
             shootAb = false;
             tiempoRecarga = tiempo;
@@ -84,6 +90,7 @@ public class DeteccionEnemigos : MonoBehaviour
             balasTotales -= 1;
             ControlMunicion.instance.RevisarCantidadBalas();
             _animator.SetTrigger("Disparo");
+            audioSource.PlayOneShot(recharge);
         }
 
         //Hacer una cuenta para restar balas/que se añada la imagen de sombreado/Coger como coleccionable
@@ -93,17 +100,19 @@ public class DeteccionEnemigos : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, radioAlcance, layerEnemigos);
         foreach (var hitCollider in hitColliders)
         {
-            if (canShoot == true && tiempoRecarga <= 0)
+            if (canShoot == true && tiempoRecarga <= 0 && menuPausa == false)
             {
                 robotADisparar = hitCollider.gameObject;
                 canShoot = false;
+                audioSource.PlayOneShot(alerta);
                 Debug.Log(hitCollider.gameObject.name);
-               /* if (hitCollider != robotADisparar && !canShoot)
+                /*if (hitCollider != robotADisparar && !canShoot)
                 {
                     robotADisparar = null;
                     canShoot = true;
-                }
-                Debug.Log(robotADisparar.name);*/
+                    LeanTween.scale(mirilla, Vector3.zero, 0f).setEase(animCurv);
+                }*/
+                //Debug.Log(robotADisparar.name);
                 shootAb = true;
                 LeanTween.scale(mirilla, Vector3.one, 0.25f).setEase(animCurv);
             }

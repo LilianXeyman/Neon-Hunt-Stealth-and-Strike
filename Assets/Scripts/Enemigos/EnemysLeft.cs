@@ -64,7 +64,7 @@ public class EnemysLeft : MonoBehaviour
         LeanTween.scale(infoPantallaVictoria, Vector3.zero, 0f);
         pantallaVictoria.SetActive(false);
         miniMapa.SetActive(true);
-        //controles.SetActive(true);
+        controles.SetActive(true); //Poner en modo tablet
 
         Application.targetFrameRate = 140;
         fpsNumero = 1f / Time.deltaTime;
@@ -76,7 +76,7 @@ public class EnemysLeft : MonoBehaviour
         totalFPS += fpsNumero;
         frameCount ++;
         timeElapsed += Time.deltaTime;
-        if (timeElapsed >= 10f)
+        if (timeElapsed >= 5f)
         {
             float fpsPromedio = totalFPS / frameCount;
             fpsEnPantalla.text = "FPS: " + Mathf.RoundToInt(fpsPromedio);

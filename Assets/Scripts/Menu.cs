@@ -37,6 +37,8 @@ public class Menu : MonoBehaviour
     GameObject imagenVs2;
     [SerializeField]
     GameObject menuOpciones;
+    [SerializeField]
+    GameObject imagencontroles;
 
     //Parámetros
     [SerializeField]
@@ -304,6 +306,14 @@ public class Menu : MonoBehaviour
 
         // Hacer que el alpha vaya de 1 a 0.5 y vuelva a 1 en bucle
         LeanTween.alphaCanvas(canvasGroup, 0.2f, tiempoAnim).setEase(LeanTweenType.easeInOutSine).setLoopPingPong();
+    }
+    public void Controles()
+    {
+        LeanTween.moveLocalX(imagencontroles, 0, 1f).setEase(curvAnim);
+    }
+    public void VolverControles()
+    {
+        LeanTween.moveLocalX(imagencontroles, 1685, 1f).setEase(curvAnim);
     }
 }
 

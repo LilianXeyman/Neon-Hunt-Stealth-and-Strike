@@ -73,6 +73,7 @@ public class Balas : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemigos"))
         {
+            audioSource.PlayOneShot(explosionSound);
             Destroy(collision.gameObject);
             Instantiate(explosion, transform.position, Quaternion.identity);
             deteccionEnemigos.canShoot = true;
@@ -86,7 +87,9 @@ public class Balas : MonoBehaviour
         }
         else 
         {
+            audioSource.PlayOneShot(explosionSound);//No suena
             balasPool.GuardarBala(gameObject);
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Instantiate(marcasExplosion, transform.position, Quaternion.identity);
             deteccionEnemigos.canShoot = true;
             puedeRestar = true;
@@ -97,6 +100,5 @@ public class Balas : MonoBehaviour
                 EnemysLeft.instance.puntuacionEnPantalla.text = EnemysLeft.instance.puntuacionFinal.ToString("0000");
             }
         }
-        audioSource.PlayOneShot(explosionSound); ;//Mirar esto porque como se destruye no suena
     }
 }
