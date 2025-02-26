@@ -34,7 +34,7 @@ public class Observar : MonoBehaviour
         LeanTween.scale(infoPantallaDerrota, Vector3.zero, 0f);
         pantallaDerrota.SetActive(false);
         miniMapa.SetActive(true);
-        controles.SetActive(true); //Poner en modo tableta
+        //controles.SetActive(true); //Poner en modo tableta
     }
 
     private void FixedUpdate()

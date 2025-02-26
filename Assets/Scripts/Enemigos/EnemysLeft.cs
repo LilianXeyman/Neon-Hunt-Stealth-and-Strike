@@ -64,7 +64,7 @@ public class EnemysLeft : MonoBehaviour
         LeanTween.scale(infoPantallaVictoria, Vector3.zero, 0f);
         pantallaVictoria.SetActive(false);
         miniMapa.SetActive(true);
-        controles.SetActive(true); //Poner en modo tablet
+        //controles.SetActive(true); //Poner en modo tablet
 
         Application.targetFrameRate = 140;
         fpsNumero = 1f / Time.deltaTime;

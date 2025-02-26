@@ -53,6 +53,8 @@ public class DeteccionEnemigos : MonoBehaviour
     AudioClip recharge;
     [SerializeField]
     AudioClip alerta;
+    [SerializeField]
+    AudioClip clack;
 
     //Efectos especiales
     [SerializeField]
@@ -61,6 +63,10 @@ public class DeteccionEnemigos : MonoBehaviour
     GameObject efectoHumoPrefab;
 
     StarterAssetsInputs input;
+
+    //Para el movimiento de la camara
+    [SerializeField]
+    Transform camaraTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -91,12 +97,15 @@ public class DeteccionEnemigos : MonoBehaviour
             ControlMunicion.instance.RevisarCantidadBalas();
             _animator.SetTrigger("Disparo");
             audioSource.PlayOneShot(recharge);
+            //Movimiento de la camara
+            CameraShake();
         }
         if (input.shoot && shootAb && menuPausa == false && balasTotales <= 1)
         { 
             balasTotales = 0;
             LeanTween.scale(mirilla, Vector3.one * 0.25f, 0.25f).setEase(animCurv);
             LeanTween.scale(mirilla, Vector3.one, 0.25f).setEase(animCurv);
+            audioSource.PlayOneShot(clack);
         }
 
         //Hacer una cuenta para restar balas/que se añada la imagen de sombreado/Coger como coleccionable
@@ -152,5 +161,18 @@ public class DeteccionEnemigos : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(gameObject.transform.position, radioAlcance);
+    }
+    void CameraShake()
+    {
+        Vector3 originalPosition = camaraTransform.localPosition;
+
+        // Movimiento de retroceso (hacia atrás)
+        LeanTween.moveLocalZ(camaraTransform.gameObject, originalPosition.z - 0.2f, 0.1f).setEaseOutCubic().setOnComplete(() =>
+        {
+            LeanTween.moveLocalZ(camaraTransform.gameObject, originalPosition.z, 0.1f).setEaseOutCubic();
+        });
+
+        // Pequeño temblor lateral
+        LeanTween.moveLocalX(camaraTransform.gameObject, originalPosition.x + Random.Range(-0.1f, 0.1f), 0.05f).setLoopPingPong(2);
     }
 }
