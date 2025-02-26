@@ -78,7 +78,7 @@ public class DeteccionEnemigos : MonoBehaviour
         //Poner que si el tiempo es >=0 que se vea una imagen como que esta recargando y al pasar el tiempo se quita
         ExplosionDamage();
 
-        if (input.shoot && shootAb && menuPausa == false) //o el fire1 Input.GetButtonDown("Fire1)
+        if (input.shoot && shootAb && menuPausa == false && balasTotales >= 1) //o el fire1 Input.GetButtonDown("Fire1)
         {
             audioSource.PlayOneShot(shootSound);
             LeanTween.scale(mirilla, Vector3.zero, 0f).setEase(animCurv);
@@ -91,6 +91,12 @@ public class DeteccionEnemigos : MonoBehaviour
             ControlMunicion.instance.RevisarCantidadBalas();
             _animator.SetTrigger("Disparo");
             audioSource.PlayOneShot(recharge);
+        }
+        if (input.shoot && shootAb && menuPausa == false && balasTotales <= 1)
+        { 
+            balasTotales = 0;
+            LeanTween.scale(mirilla, Vector3.one * 0.25f, 0.25f).setEase(animCurv);
+            LeanTween.scale(mirilla, Vector3.one, 0.25f).setEase(animCurv);
         }
 
         //Hacer una cuenta para restar balas/que se añada la imagen de sombreado/Coger como coleccionable
