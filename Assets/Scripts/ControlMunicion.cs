@@ -29,7 +29,7 @@ public class ControlMunicion : MonoBehaviour
         }*/
         imagenBalas[2].SetActive(false);
         imagenBalas[1].SetActive(false);
-        imagenBalas[0].SetActive(true);
+        imagenBalas[0].SetActive(false);
         noBalas.SetActive(false);
     }
 

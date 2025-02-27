@@ -31,7 +31,15 @@ public class Balas : MonoBehaviour
     AudioSource audioSource;
     public AudioClip explosionSound;
 
-    //public NavMeshAgent navMeshAgent;
+    //para los powerUps
+    [SerializeField]
+    float probabilidad;
+    [SerializeField]
+    GameObject powerUp;
+    [SerializeField]
+    GameObject powerUpMaxEnergy;
+    [SerializeField]
+    GameObject powerUpMantenerEnergy;
     void Start()
     {
         //navMeshAgent = GetComponent<NavMeshAgent>();
@@ -84,6 +92,17 @@ public class Balas : MonoBehaviour
                 EnemysLeft.instance.RemoveEnemy();
             }
             balasPool.GuardarBala(gameObject);
+            probabilidad = Random.value*100;
+            if (probabilidad <= 10f)
+            {
+                //Instanciar PowerUp
+                powerUp = Instantiate(powerUpMaxEnergy, transform.position, Quaternion.identity);
+            }
+            if (probabilidad <= 16f && probabilidad >= 11f)
+            {
+                //Instanciar PowerUp
+                powerUp = Instantiate(powerUpMantenerEnergy, transform.position, Quaternion.identity);
+            }
         }
         else 
         {

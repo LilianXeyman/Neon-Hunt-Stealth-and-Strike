@@ -68,6 +68,11 @@ public class DeteccionEnemigos : MonoBehaviour
     [SerializeField]
     Transform camaraTransform;
 
+    //Modificacion/Control de la barra de energía
+    public float tiempoEnergia;
+    [SerializeField]
+    float valorTiempoEsperaEnergia;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,6 +80,7 @@ public class DeteccionEnemigos : MonoBehaviour
         LeanTween.scale(mirilla, Vector3.zero, 0);
         audioSource = GetComponent<AudioSource>();
         input = GetComponent<StarterAssetsInputs>();
+        EnergySystem.instance.recargandoEnergia = false;
     }
 
     // Update is called once per frame
@@ -83,9 +89,19 @@ public class DeteccionEnemigos : MonoBehaviour
         tiempoRecarga = tiempoRecarga-Time.deltaTime;
         //Poner que si el tiempo es >=0 que se vea una imagen como que esta recargando y al pasar el tiempo se quita
         ExplosionDamage();
+        tiempoEnergia += Time.deltaTime;
+        if (tiempoEnergia >= valorTiempoEsperaEnergia && EnergySystem.instance.recargandoEnergia == false)
+        {
+            EnergySystem.instance.EnergyRecover();
+            tiempoEnergia = 0;
+            EnergySystem.instance.recargandoEnergia = true;
+        }
 
         if (input.shoot && shootAb && menuPausa == false && balasTotales >= 1) //o el fire1 Input.GetButtonDown("Fire1)
         {
+            tiempoEnergia = 0;
+            EnergySystem.instance.recargandoEnergia = false;
+            EnergySystem.instance.tiempoRecargarEnergia = 0;
             audioSource.PlayOneShot(shootSound);
             LeanTween.scale(mirilla, Vector3.zero, 0f).setEase(animCurv);
             shootAb = false;
@@ -94,6 +110,7 @@ public class DeteccionEnemigos : MonoBehaviour
             Disparar2();
             //Restar aqui el numero de balas
             balasTotales -= 1;
+            EnergySystem.instance.RestarEnergy();
             ControlMunicion.instance.RevisarCantidadBalas();
             _animator.SetTrigger("Disparo");
             audioSource.PlayOneShot(recharge);
@@ -107,8 +124,11 @@ public class DeteccionEnemigos : MonoBehaviour
             LeanTween.scale(mirilla, Vector3.one, 0.25f).setEase(animCurv);
             audioSource.PlayOneShot(clack);
         }
-
-        //Hacer una cuenta para restar balas/que se añada la imagen de sombreado/Coger como coleccionable
+        if (EnergySystem.instance.energy == 100)
+        {
+            balasTotales = 3;
+            ControlMunicion.instance.RevisarCantidadBalas();
+        }
     }
     void ExplosionDamage()
     {

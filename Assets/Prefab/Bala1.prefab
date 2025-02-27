@@ -139,6 +139,12 @@ MonoBehaviour:
   marcasExplosion: {fileID: 100002, guid: 9c4e7c622ad35e04db93e5c31f5e9a0f, type: 3}
   audioSource: {fileID: 1777949534897459292}
   explosionSound: {fileID: 8300000, guid: bf98f909365a18f4ea11776045d8572e, type: 3}
+  probabilidad: 0
+  powerUp: {fileID: 0}
+  powerUpMaxEnergy: {fileID: 3913575518878581557, guid: f9524bbb3b70b0c4ab8a7c16a930027e,
+    type: 3}
+  powerUpMantenerEnergy: {fileID: 1233043397200943884, guid: 50f381e154ef3d44b91f18496ad575b9,
+    type: 3}
 --- !u!65 &4797297373475681809
 BoxCollider:
   m_ObjectHideFlags: 0

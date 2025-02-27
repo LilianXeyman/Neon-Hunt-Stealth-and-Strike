@@ -468,6 +468,12 @@ namespace StarterAssets
                 audioSource.PlayOneShot(cogerMunicion);
                 Destroy(other.gameObject);
             }
+            if (other.CompareTag("PowerUp"))
+            {
+                deteccionEnemigos.balasTotales = 3;
+                ControlMunicion.instance.RevisarCantidadBalas();
+                Destroy(other.gameObject);
+            }
         }
     }
 }
